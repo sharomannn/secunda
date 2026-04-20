@@ -1,5 +1,7 @@
-docs
 .opencode
 .agents
 .copilot-tracking
 AGENTS.md
+skills-lock.json
+.codex
+docs/payment-processing/

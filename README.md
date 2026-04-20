@@ -2,6 +2,7 @@
 
 Асинхронный микросервис для обработки платежей с гарантией доставки событий и webhook-уведомлениями.
 
+
 ## 📋 Содержание
 
 - [Быстрый старт](#быстрый-старт)
@@ -29,7 +30,7 @@ cd payment-service
 - RabbitMQ UI: http://localhost:15672 (guest/guest)
 - Health Check: http://localhost:8000/health
 
-**Подробная инструкция:** См. [QUICKSTART.md](QUICKSTART.md)
+**Подробная инструкция:** См. [QUICKSTART.md](payment-service/QUICKSTART.md)
 
 ### Проверка работоспособности
 
@@ -135,7 +136,7 @@ curl http://localhost:8000/api/v1/payments/{payment_id} \
 2. Нажмите **"Authorize"** → введите `change-me-in-production`
 3. Используйте интерактивную документацию для тестирования
 
-**Подробная документация API:** См. [docs/guides/API.md](docs/guides/API.md)
+**Подробная документация API:** См. [docs/guides/API.md](payment-service/docs/guides/API.md)
 
 ---
 
@@ -143,11 +144,11 @@ curl http://localhost:8000/api/v1/payments/{payment_id} \
 
 ### Руководства
 
-- **[QUICKSTART.md](QUICKSTART.md)** — Быстрый старт для проверяющего (5 минут)
-- **[docs/guides/API.md](docs/guides/API.md)** — Полная документация API с примерами
-- **[docs/guides/ARCHITECTURE.md](docs/guides/ARCHITECTURE.md)** — Архитектура системы, компоненты, схемы
-- **[docs/guides/TECHNICAL_DECISIONS.md](docs/guides/TECHNICAL_DECISIONS.md)** — Технические решения (Outbox, Idempotency, Retry, DLQ)
-- **[docs/guides/TESTING.md](docs/guides/TESTING.md)** — Руководство по тестированию
+- **[QUICKSTART.md](payment-service/QUICKSTART.md)** — Быстрый старт для проверяющего (5 минут)
+- **[docs/guides/API.md](payment-service/docs/guides/API.md)** — Полная документация API с примерами
+- **[docs/guides/ARCHITECTURE.md](payment-service/docs/guides/ARCHITECTURE.md)** — Архитектура системы, компоненты, схемы
+- **[docs/guides/TECHNICAL_DECISIONS.md](payment-service/docs/guides/TECHNICAL_DECISIONS.md)** — Технические решения (Outbox, Idempotency, Retry, DLQ)
+- **[docs/guides/TESTING.md](payment-service/docs/guides/TESTING.md)** — Руководство по тестированию
 
 ### Дополнительная документация
 
@@ -335,7 +336,7 @@ LOG_LEVEL=INFO
 
 **Async SQLAlchemy** — Неблокирующие операции БД для высокой производительности
 
-**Подробнее:** См. [docs/guides/ARCHITECTURE.md](docs/guides/ARCHITECTURE.md) и [docs/guides/TECHNICAL_DECISIONS.md](docs/guides/TECHNICAL_DECISIONS.md)
+**Подробнее:** См. [docs/guides/ARCHITECTURE.md](payment-service/docs/guides/ARCHITECTURE.md) и [docs/guides/TECHNICAL_DECISIONS.md](payment-service/docs/guides/TECHNICAL_DECISIONS.md)
 
 ---
 
@@ -417,7 +418,7 @@ docker-compose up -d --scale outbox-publisher=2
 ## Контакты и поддержка
 
 **Документация:**
-- [QUICKSTART.md](QUICKSTART.md) — Быстрый старт
+- [QUICKSTART.md](payment-service/QUICKSTART.md) — Быстрый старт
 - [docs/guides/](docs/guides/) — Подробные руководства
 - [docs/payment-processing/](docs/payment-processing/) — Проектная документация
 
