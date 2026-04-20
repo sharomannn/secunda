@@ -40,7 +40,18 @@ echo "4️⃣  Применение миграций базы данных..."
 docker-compose run --rm api alembic upgrade head
 
 echo ""
-echo "5️⃣  Запуск всех сервисов..."
+echo "5️⃣  Настройка RabbitMQ очередей..."
+docker-compose exec -T rabbitmq bash << 'EOF'
+rabbitmqadmin declare exchange name=payments type=topic durable=true
+rabbitmqadmin declare queue name=payments.new durable=true arguments='{"x-dead-letter-exchange":"payments.dlx","x-dead-letter-routing-key":"dlq"}'
+rabbitmqadmin declare exchange name=payments.dlx type=fanout durable=true
+rabbitmqadmin declare queue name=payments.new.dlq durable=true arguments='{"x-message-ttl":604800000}'
+rabbitmqadmin declare binding source=payments destination=payments.new routing_key=payment.created
+rabbitmqadmin declare binding source=payments.dlx destination=payments.new.dlq routing_key=dlq
+EOF
+
+echo ""
+echo "6️⃣  Запуск всех сервисов..."
 docker-compose up -d
 
 echo ""
