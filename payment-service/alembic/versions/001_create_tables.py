@@ -16,10 +16,28 @@ depends_on = None
 
 
 def upgrade() -> None:
-    # Create enums
-    op.execute("CREATE TYPE payment_status AS ENUM ('pending', 'succeeded', 'failed')")
-    op.execute("CREATE TYPE currency AS ENUM ('RUB', 'USD', 'EUR')")
-    op.execute("CREATE TYPE outbox_status AS ENUM ('pending', 'published')")
+    # Создание ENUM типов (с проверкой существования через DO блок)
+    op.execute("""
+        DO $$ BEGIN
+            CREATE TYPE payment_status AS ENUM ('pending', 'succeeded', 'failed');
+        EXCEPTION
+            WHEN duplicate_object THEN null;
+        END $$;
+    """)
+    op.execute("""
+        DO $$ BEGIN
+            CREATE TYPE currency AS ENUM ('RUB', 'USD', 'EUR');
+        EXCEPTION
+            WHEN duplicate_object THEN null;
+        END $$;
+    """)
+    op.execute("""
+        DO $$ BEGIN
+            CREATE TYPE outbox_status AS ENUM ('pending', 'published');
+        EXCEPTION
+            WHEN duplicate_object THEN null;
+        END $$;
+    """)
     
     # Create payments table
     op.create_table(
