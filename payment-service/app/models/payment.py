@@ -12,6 +12,9 @@ class PaymentStatus(str, Enum):
     PENDING = "pending"
     SUCCEEDED = "succeeded"
     FAILED = "failed"
+    
+    def __str__(self) -> str:
+        return self.value
 
 
 class Currency(str, Enum):
@@ -19,6 +22,9 @@ class Currency(str, Enum):
     RUB = "RUB"
     USD = "USD"
     EUR = "EUR"
+    
+    def __str__(self) -> str:
+        return self.value
 
 
 class Payment(Base):
@@ -36,7 +42,7 @@ class Payment(Base):
         nullable=False
     )
     currency: Column[Any] = Column(
-        PG_ENUM(Currency, name="currency", create_type=False),
+        PG_ENUM(Currency, name="currency", create_type=False, values_callable=lambda x: [e.value for e in x]),
         nullable=False
     )
     description = Column(
@@ -51,7 +57,7 @@ class Payment(Base):
         server_default="{}"
     )
     status: Column[Any] = Column(
-        PG_ENUM(PaymentStatus, name="payment_status", create_type=False),
+        PG_ENUM(PaymentStatus, name="payment_status", create_type=False, values_callable=lambda x: [e.value for e in x]),
         nullable=False,
         default=PaymentStatus.PENDING,
         server_default="pending"

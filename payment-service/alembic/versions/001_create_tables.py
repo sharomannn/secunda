@@ -44,10 +44,10 @@ def upgrade() -> None:
         'payments',
         sa.Column('id', postgresql.UUID(as_uuid=True), primary_key=True),
         sa.Column('amount', sa.Numeric(precision=10, scale=2), nullable=False),
-        sa.Column('currency', postgresql.ENUM('RUB', 'USD', 'EUR', name='currency'), nullable=False),
+        sa.Column('currency', postgresql.ENUM('RUB', 'USD', 'EUR', name='currency', create_type=False), nullable=False),
         sa.Column('description', sa.String(500), nullable=False),
         sa.Column('metadata', postgresql.JSONB, nullable=False, server_default='{}'),
-        sa.Column('status', postgresql.ENUM('pending', 'succeeded', 'failed', name='payment_status'), nullable=False, server_default='pending'),
+        sa.Column('status', postgresql.ENUM('pending', 'succeeded', 'failed', name='payment_status', create_type=False), nullable=False, server_default='pending'),
         sa.Column('idempotency_key', sa.String(255), nullable=False, unique=True),
         sa.Column('webhook_url', sa.String(2048), nullable=False),
         sa.Column('created_at', sa.DateTime(timezone=True), nullable=False, server_default=sa.func.now()),
@@ -67,7 +67,7 @@ def upgrade() -> None:
         sa.Column('aggregate_id', postgresql.UUID(as_uuid=True), nullable=False),
         sa.Column('event_type', sa.String(100), nullable=False),
         sa.Column('payload', postgresql.JSONB, nullable=False),
-        sa.Column('status', postgresql.ENUM('pending', 'published', name='outbox_status'), nullable=False, server_default='pending'),
+        sa.Column('status', postgresql.ENUM('pending', 'published', name='outbox_status', create_type=False), nullable=False, server_default='pending'),
         sa.Column('created_at', sa.DateTime(timezone=True), nullable=False, server_default=sa.func.now()),
         sa.Column('published_at', sa.DateTime(timezone=True), nullable=True)
     )
