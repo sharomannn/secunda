@@ -32,6 +32,9 @@ htmlcov/
 .env
 .env.local
 
+# Docker
+docker-compose.override.yml
+
 # Database
 *.db
 *.sqlite3
