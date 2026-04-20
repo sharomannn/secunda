@@ -86,7 +86,7 @@ class PaymentDetailResponse(BaseModel):
     amount: Decimal
     currency: Currency
     description: str
-    metadata: Dict[str, Any]
+    metadata: Dict[str, Any] = Field(..., validation_alias="metadata_", serialization_alias="metadata")
     status: PaymentStatus
     idempotency_key: str
     webhook_url: str
@@ -95,6 +95,7 @@ class PaymentDetailResponse(BaseModel):
     
     model_config = {
         "from_attributes": True,
+        "populate_by_name": True,
         "json_schema_extra": {
             "examples": [
                 {

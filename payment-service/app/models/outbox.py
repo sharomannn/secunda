@@ -10,6 +10,9 @@ class OutboxStatus(str, Enum):
     """Статус события Outbox"""
     PENDING = "pending"
     PUBLISHED = "published"
+    
+    def __str__(self) -> str:
+        return self.value
 
 
 class Outbox(Base):
@@ -35,7 +38,7 @@ class Outbox(Base):
         nullable=False
     )
     status: Column[Any] = Column(
-        PG_ENUM(OutboxStatus, name="outbox_status", create_type=False),
+        PG_ENUM(OutboxStatus, name="outbox_status", create_type=False, values_callable=lambda x: [e.value for e in x]),
         nullable=False,
         default=OutboxStatus.PENDING,
         server_default="pending"
